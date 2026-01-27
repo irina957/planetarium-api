@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from rest_framework.exceptions import ValidationError
 
 
 class ShowTheme(models.Model):
@@ -49,16 +50,38 @@ class Reservation(models.Model):
 class Ticket(models.Model):
     row = models.IntegerField()
     seat = models.IntegerField()
-    show_session = models.ForeignKey(ShowSession,
+    show_session = models.ForeignKey("ShowSession",
                                      on_delete=models.CASCADE,
                                      related_name="tickets")
-    reservation = models.ForeignKey(Reservation,
+    reservation = models.ForeignKey("Reservation",
                                     on_delete=models.CASCADE,
                                     related_name="tickets")
 
     class Meta:
-        unique_together = ("row", "seat", "show_session")
-        ordering = ["row", "seat"]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["row", "seat", "show_session"],
+                name="unique_ticket_seat_session"
+            )
+        ]
+
+    def clean(self):
+        max_rows = self.show_session.planetarium_dome.rows
+        max_seats = self.show_session.planetarium_dome.seats_in_row
+
+        if not (1 <= self.row <= max_rows):
+            raise ValidationError({
+                "row": f"Row number must be in range [1, {max_rows}]."
+            })
+
+        if not (1 <= self.seat <= max_seats):
+            raise ValidationError({
+                "seat": f"Seat number must be in range [1, {max_seats}]."
+            })
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"Ticket {self.id} (Row {self.row}, Seat {self.seat})"
+        return f"{self.show_session} (Row: {self.row}, Seat: {self.seat})"
