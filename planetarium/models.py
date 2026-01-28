@@ -1,6 +1,5 @@
 from django.db import models
 from django.conf import settings
-from rest_framework.exceptions import ValidationError
 
 
 class ShowTheme(models.Model):
@@ -65,19 +64,27 @@ class Ticket(models.Model):
             )
         ]
 
-    def clean(self):
-        max_rows = self.show_session.planetarium_dome.rows
-        max_seats = self.show_session.planetarium_dome.seats_in_row
-
-        if not (1 <= self.row <= max_rows):
-            raise ValidationError({
+    @staticmethod
+    def validate_row(row, max_rows, error):
+        if not (1 <= row <= max_rows):
+            raise error({
                 "row": f"Row number must be in range [1, {max_rows}]."
             })
 
-        if not (1 <= self.seat <= max_seats):
-            raise ValidationError({
+    @staticmethod
+    def validate_seat(seat, max_seats, error):
+        if not (1 <= seat <= max_seats):
+            raise error({
                 "seat": f"Seat number must be in range [1, {max_seats}]."
             })
+
+    def clean(self):
+        Ticket.validate_row(self.row,
+                            self.show_session.planetarium_dome.rows,
+                            ValueError)
+        Ticket.validate_seat(self.seat,
+                             self.show_session.planetarium_dome.seats_in_row,
+                             ValueError)
 
     def save(self, *args, **kwargs):
         self.full_clean()

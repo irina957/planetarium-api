@@ -1,5 +1,6 @@
 from django.db import transaction
 from rest_framework import serializers
+
 from planetarium.models import (
     ShowTheme,
     AstronomyShow,
@@ -68,9 +69,19 @@ class TicketSerializer(serializers.ModelSerializer):
         model = Ticket
         fields = ("id", "row", "seat", "show_session", "reservation")
 
+    def validate(self, attrs):
+        Ticket.validate_row(attrs["row"],
+                            attrs["show_session"].planetarium_dome.rows,
+                            serializers.ValidationError)
+        Ticket.validate_seat(attrs["seat"],
+                             attrs["show_session"].planetarium_dome.seats_in_row,
+                             serializers.ValidationError)
+        return attrs
+
 
 class ReservationSerializer(serializers.ModelSerializer):
     tickets = TicketSerializer(many=True, read_only=False, allow_empty=False)
+
     class Meta:
         model = Reservation
         fields = ("id", "created_at", "tickets")
@@ -80,5 +91,5 @@ class ReservationSerializer(serializers.ModelSerializer):
             tickets_data = validated_data.pop("tickets")
             reservation = Reservation.objects.create(**validated_data)
             for ticket_data in tickets_data:
-                Ticket.objects.create(reservation=reservation,**ticket_data)
+                Ticket.objects.create(reservation=reservation, **ticket_data)
             return reservation
