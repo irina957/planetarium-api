@@ -29,7 +29,7 @@ from planetarium.serializers import (
 
 
 class ShowThemeViewSet(viewsets.ModelViewSet):
-    queryset = ShowTheme.objects.all()
+    queryset = ShowTheme.objects.all().order_by("id")
     serializer_class = ShowThemeSerializer
 
 
@@ -54,11 +54,11 @@ class AstronomyShowViewSet(viewsets.ModelViewSet):
                 raise ValidationError({"themes": "Use comma separated integers"})
         if self.action in ("list", "retrieve"):
             queryset = queryset.prefetch_related("themes")
-        return queryset
+        return queryset.order_by("id")
 
 
 class PlanetariumDomeViewSet(viewsets.ModelViewSet):
-    queryset = PlanetariumDome.objects.all()
+    queryset = PlanetariumDome.objects.all().order_by("id")
     serializer_class = PlanetariumDomeSerializer
 
 
@@ -89,10 +89,10 @@ class ShowSessionViewSet(viewsets.ModelViewSet):
                 * F("planetarium_dome__seats_in_row")
                 - Count("tickets")
             )
-            return queryset.order_by("id")
         elif self.action == "retrieve":
-            return queryset.select_related("astronomy_show", "planetarium_dome")
-        return queryset
+            queryset = queryset.select_related("astronomy_show",
+                                               "planetarium_dome")
+        return queryset.order_by("id")
 
 
 class ReservationViewSet(viewsets.ModelViewSet):
@@ -106,7 +106,7 @@ class ReservationViewSet(viewsets.ModelViewSet):
             "tickets__show_session__astronomy_show",
             "tickets__show_session__planetarium_dome",
         )
-        return queryset
+        return queryset.order_by("-created_at")
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
