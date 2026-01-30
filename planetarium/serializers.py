@@ -76,25 +76,43 @@ class TicketSerializer(serializers.ModelSerializer):
 class TicketBriefSerializer(TicketSerializer):
     class Meta:
         model = Ticket
-        fields = ( "row", "seat",)
+        fields = ("row", "seat",)
 
 
 class ShowSessionRetrieveSerializer(ShowSessionSerializer):
     astronomy_show = AstronomyShowRetrieveSerializer(many=False,
                                                      read_only=True)
     planetarium_dome = PlanetariumDomeSerializer(many=False, read_only=True)
-    taken_seats = TicketBriefSerializer(source="tickets", many=True, read_only=True)
+    taken_seats = TicketBriefSerializer(source="tickets",
+                                        many=True, read_only=True)
+
     class Meta:
         model = ShowSession
-        fields = ("id", "astronomy_show", "planetarium_dome", "show_time", "taken_seats")
+        fields = ("id", "astronomy_show",
+                  "planetarium_dome", "show_time", "taken_seats")
+
+
+class TicketCreateSerializer(TicketSerializer):
+    class Meta:
+        model = Ticket
+        fields = ("row", "seat", "show_session")
 
 
 class ReservationSerializer(serializers.ModelSerializer):
-    tickets = TicketSerializer(many=True, read_only=False, allow_empty=False)
+    tickets = TicketSerializer(many=True, read_only=True)
 
     class Meta:
         model = Reservation
         fields = ("id", "created_at", "tickets")
+
+
+class ReservationCreateSerializer(serializers.ModelSerializer):
+    tickets = TicketCreateSerializer(many=True, allow_empty=False)
+
+    class Meta:
+        model = Reservation
+        fields = ("id", "created_at", "tickets")
+        read_only_fields = ("id", "created_at")
 
     def create(self, validated_data):
         with transaction.atomic():
