@@ -1,19 +1,30 @@
 from datetime import datetime
 
+from django.db.models import Count, F
 from rest_framework import viewsets
 from rest_framework.exceptions import ValidationError
 
 from planetarium.models import (
-    ShowTheme, AstronomyShow, PlanetariumDome,
-    ShowSession, Reservation, Ticket
+    ShowTheme,
+    AstronomyShow,
+    PlanetariumDome,
+    ShowSession,
+    Reservation,
+    Ticket,
 )
 from planetarium.serializers import (
-    ShowThemeSerializer, AstronomyShowSerializer,
-    PlanetariumDomeSerializer, ShowSessionSerializer,
-    ReservationSerializer, TicketSerializer,
-    ShowSessionListSerializer, AstronomyShowListSerializer,
-    AstronomyShowRetrieveSerializer, ShowSessionRetrieveSerializer,
-    ReservationCreateSerializer, TicketCreateSerializer
+    ShowThemeSerializer,
+    AstronomyShowSerializer,
+    PlanetariumDomeSerializer,
+    ShowSessionSerializer,
+    ReservationSerializer,
+    TicketSerializer,
+    ShowSessionListSerializer,
+    AstronomyShowListSerializer,
+    AstronomyShowRetrieveSerializer,
+    ShowSessionRetrieveSerializer,
+    ReservationCreateSerializer,
+    TicketCreateSerializer,
 )
 
 
@@ -40,8 +51,7 @@ class AstronomyShowViewSet(viewsets.ModelViewSet):
                 theme_ids = [int(pk) for pk in themes.split(",")]
                 queryset = queryset.filter(themes__id__in=theme_ids).distinct()
             except ValueError:
-                raise ValidationError({"themes":
-                                           "Use comma separated integers"})
+                raise ValidationError({"themes": "Use comma separated integers"})
         if self.action in ("list", "retrieve"):
             queryset = queryset.prefetch_related("themes")
         return queryset
@@ -58,7 +68,7 @@ class ShowSessionViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.action == "list":
             return ShowSessionListSerializer
-        if self.action == "retrieve":
+        elif self.action == "retrieve":
             return ShowSessionRetrieveSerializer
         return ShowSessionSerializer
 
@@ -71,9 +81,17 @@ class ShowSessionViewSet(viewsets.ModelViewSet):
                 queryset = queryset.filter(show_time__date=date)
             except ValueError:
                 raise ValidationError({"date": "Use format YYYY-MM-DD"})
-        if self.action in ("list", "retrieve"):
-            return queryset.select_related("astronomy_show",
-                                           "planetarium_dome")
+        if self.action == "list":
+            queryset = queryset.select_related(
+                "astronomy_show", "planetarium_dome"
+            ).annotate(
+                tickets_available=F("planetarium_dome__rows")
+                * F("planetarium_dome__seats_in_row")
+                - Count("tickets")
+            )
+            return queryset.order_by("id")
+        elif self.action == "retrieve":
+            return queryset.select_related("astronomy_show", "planetarium_dome")
         return queryset
 
 
@@ -82,7 +100,9 @@ class ReservationViewSet(viewsets.ModelViewSet):
     serializer_class = ReservationSerializer
 
     def get_queryset(self):
-        return self.queryset.filter(user=self.request.user).prefetch_related("tickets__show_session")
+        return self.queryset.filter(user=self.request.user).prefetch_related(
+            "tickets__show_session"
+        )
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
