@@ -29,7 +29,7 @@ class AstronomyShowListSerializer(AstronomyShowSerializer):
 
 
 class AstronomyShowRetrieveSerializer(AstronomyShowSerializer):
-    themes = ShowThemeSerializer(many=True)
+    themes = ShowThemeSerializer(many=True, read_only=True)
 
 
 class PlanetariumDomeSerializer(serializers.ModelSerializer):
@@ -58,12 +58,6 @@ class ShowSessionListSerializer(ShowSessionSerializer):
                   "planetarium_dome_name", "show_time")
 
 
-class ShowSessionRetrieveSerializer(ShowSessionSerializer):
-    astronomy_show = AstronomyShowRetrieveSerializer(many=False,
-                                                     read_only=True)
-    planetarium_dome = PlanetariumDomeSerializer(many=False, read_only=True)
-
-
 class TicketSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ticket
@@ -77,6 +71,22 @@ class TicketSerializer(serializers.ModelSerializer):
                              attrs["show_session"].planetarium_dome.seats_in_row,
                              serializers.ValidationError)
         return attrs
+
+
+class TicketBriefSerializer(TicketSerializer):
+    class Meta:
+        model = Ticket
+        fields = ( "row", "seat",)
+
+
+class ShowSessionRetrieveSerializer(ShowSessionSerializer):
+    astronomy_show = AstronomyShowRetrieveSerializer(many=False,
+                                                     read_only=True)
+    planetarium_dome = PlanetariumDomeSerializer(many=False, read_only=True)
+    taken_seats = TicketBriefSerializer(source="tickets", many=True, read_only=True)
+    class Meta:
+        model = ShowSession
+        fields = ("id", "astronomy_show", "planetarium_dome", "show_time", "taken_seats")
 
 
 class ReservationSerializer(serializers.ModelSerializer):

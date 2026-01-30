@@ -63,6 +63,7 @@ class Ticket(models.Model):
                 name="unique_ticket_seat_session"
             )
         ]
+        ordering = ["row", "seat", "show_session"]
 
     @staticmethod
     def validate_row(row, max_rows, error):
