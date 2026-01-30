@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from rest_framework import viewsets
 from planetarium.models import (
     ShowTheme, AstronomyShow, PlanetariumDome,
@@ -55,6 +57,10 @@ class ShowSessionViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = self.queryset
+        date = self.request.query_params.get("date", None)
+        if date:
+            date = datetime.strptime(date, "%Y-%m-%d").date()
+            queryset = queryset.filter(show_time__date=date)
         if self.action in ("list", "retrieve"):
             return queryset.select_related("astronomy_show",
                                            "planetarium_dome")
