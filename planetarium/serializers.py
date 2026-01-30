@@ -73,6 +73,8 @@ class TicketSerializer(serializers.ModelSerializer):
                              serializers.ValidationError)
         return attrs
 
+class TicketListSerializer(TicketSerializer):
+    show_session = ShowSessionListSerializer(many=False, read_only=True)
 
 class TicketBriefSerializer(TicketSerializer):
     class Meta:
@@ -106,6 +108,9 @@ class ReservationSerializer(serializers.ModelSerializer):
         model = Reservation
         fields = ("id", "created_at", "tickets")
 
+
+class ReservationListSerializer(ReservationSerializer):
+    tickets = TicketListSerializer(many=True, read_only=True)
 
 class ReservationCreateSerializer(serializers.ModelSerializer):
     tickets = TicketCreateSerializer(many=True, allow_empty=False)
