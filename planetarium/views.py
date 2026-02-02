@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from django.db.models import Count, F
-from rest_framework import viewsets
+from rest_framework import viewsets, mixins
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import IsAuthenticated
@@ -21,24 +21,31 @@ from planetarium.serializers import (
     PlanetariumDomeSerializer,
     ShowSessionSerializer,
     ReservationSerializer,
-    TicketSerializer,
     ShowSessionListSerializer,
     AstronomyShowListSerializer,
     AstronomyShowRetrieveSerializer,
     ShowSessionRetrieveSerializer,
     ReservationCreateSerializer,
-    TicketCreateSerializer, TicketListSerializer, ReservationListSerializer,
+    TicketListSerializer,
+    ReservationListSerializer,
 )
 
 
-class ShowThemeViewSet(viewsets.ModelViewSet):
+class ShowThemeViewSet(
+    mixins.CreateModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet
+):
     queryset = ShowTheme.objects.all().order_by("id")
     serializer_class = ShowThemeSerializer
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAdminOrIfAuthenticatedReadOnly,)
 
 
-class AstronomyShowViewSet(viewsets.ModelViewSet):
+class AstronomyShowViewSet(
+    mixins.ListModelMixin,
+    mixins.CreateModelMixin,
+    mixins.RetrieveModelMixin,
+    viewsets.GenericViewSet,
+):
     queryset = AstronomyShow.objects.all()
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAdminOrIfAuthenticatedReadOnly,)
@@ -64,7 +71,9 @@ class AstronomyShowViewSet(viewsets.ModelViewSet):
         return queryset.order_by("id")
 
 
-class PlanetariumDomeViewSet(viewsets.ModelViewSet):
+class PlanetariumDomeViewSet(
+    mixins.CreateModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet
+):
     queryset = PlanetariumDome.objects.all().order_by("id")
     serializer_class = PlanetariumDomeSerializer
     authentication_classes = (TokenAuthentication,)
@@ -98,15 +107,16 @@ class ShowSessionViewSet(viewsets.ModelViewSet):
             ).annotate(
                 tickets_available=F("planetarium_dome__rows")
                 * F("planetarium_dome__seats_in_row")
-                - Count("tickets")
+                - Count("tickets", distinct=True)
             )
         elif self.action == "retrieve":
-            queryset = queryset.select_related("astronomy_show",
-                                               "planetarium_dome")
+            queryset = queryset.select_related("astronomy_show", "planetarium_dome")
         return queryset.order_by("id")
 
 
-class ReservationViewSet(viewsets.ModelViewSet):
+class ReservationViewSet(
+    mixins.ListModelMixin, mixins.CreateModelMixin, viewsets.GenericViewSet
+):
     queryset = Reservation.objects.all()
     serializer_class = ReservationSerializer
     authentication_classes = (TokenAuthentication,)
@@ -116,9 +126,9 @@ class ReservationViewSet(viewsets.ModelViewSet):
         queryset = self.queryset.filter(user=self.request.user)
         if self.action == "list":
             queryset = queryset.prefetch_related(
-            "tickets__show_session__astronomy_show",
-            "tickets__show_session__planetarium_dome",
-        )
+                "tickets__show_session__astronomy_show",
+                "tickets__show_session__planetarium_dome",
+            )
         return queryset.order_by("-created_at")
 
     def perform_create(self, serializer):
@@ -127,20 +137,16 @@ class ReservationViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.action == "list":
             return ReservationListSerializer
-        elif self.action == "create":
+        if self.action == "create":
             return ReservationCreateSerializer
         return ReservationSerializer
 
 
-class TicketViewSet(viewsets.ModelViewSet):
+class TicketViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     queryset = Ticket.objects.all()
-    serializer_class = TicketSerializer
+    serializer_class = TicketListSerializer
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAdminOrIfAuthenticatedReadOnly,)
 
-    def get_serializer_class(self):
-        if self.action == "list":
-            return TicketListSerializer
-        elif self.action == "create":
-            return TicketCreateSerializer
-        return TicketSerializer
+    def get_queryset(self):
+        return self.queryset.select_related("show_session", "reservation")
