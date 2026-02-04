@@ -1,6 +1,8 @@
 from datetime import datetime
 
 from django.db.models import Count, F
+from drf_spectacular.types import OpenApiTypes
+from drf_spectacular.utils import extend_schema, OpenApiParameter
 from rest_framework import viewsets, mixins, status
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import action
@@ -29,7 +31,8 @@ from planetarium.serializers import (
     ShowSessionRetrieveSerializer,
     ReservationCreateSerializer,
     TicketListSerializer,
-    ReservationListSerializer, AstronomyShowImageSerializer,
+    ReservationListSerializer,
+    AstronomyShowImageSerializer,
 )
 
 
@@ -75,17 +78,35 @@ class AstronomyShowViewSet(
         return queryset.order_by("id")
 
     @action(
-        methods=["post",], detail=True, permission_classes=[IsAdminUser],
+        methods=[
+            "post",
+        ],
+        detail=True,
+        permission_classes=[IsAdminUser],
         url_path="upload-image",
     )
     def upload_image(self, request, pk=None):
         astronomy_show = self.get_object()
-        serializer = self.get_serializer(astronomy_show,
-                                         data=request.data)
+        serializer = self.get_serializer(astronomy_show, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    @extend_schema(
+        parameters=[
+            OpenApiParameter(
+                "themes",
+                type={"type": "array", "items": {"type": "integer"}},
+                description="Filter by themes (ex. ?themes=1,3)",
+                style="form",
+                explode=False,
+            )
+        ],
+    )
+    def list(self, request, *args, **kwargs):
+        """Get list of Astronomy shows"""
+        return super().list(request, *args, **kwargs)
 
 
 class PlanetariumDomeViewSet(
@@ -129,6 +150,19 @@ class ShowSessionViewSet(viewsets.ModelViewSet):
         elif self.action == "retrieve":
             queryset = queryset.select_related("astronomy_show", "planetarium_dome")
         return queryset.order_by("id")
+
+    @extend_schema(
+        parameters=[
+            OpenApiParameter(
+                "date",
+                type=OpenApiTypes.DATE,
+                description="Filter by date (ex. 2026-02-04)",
+            )
+        ]
+    )
+    def list(self, request, *args, **kwargs):
+        """Get list of Show Sessions"""
+        return super().list(request, *args, **kwargs)
 
 
 class ReservationViewSet(
