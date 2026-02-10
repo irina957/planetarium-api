@@ -89,8 +89,9 @@ python manage.py runserver
 
 Once the server is running, API documentation is available at:
 
-- **Swagger UI:** http://127.0.0.1:8000/api/doc/swagger/
-- **Redoc:** http://127.0.0.1:8000/api/doc/redoc/
+- **Swagger UI:** http://127.0.0.1:8000/api/schema/swagger-ui/
+- **Redoc:** http://127.0.0.1:8000/api/schema/redoc/
 
 ### Database structure
+
 ![DB Structure](docs/structure.png)
