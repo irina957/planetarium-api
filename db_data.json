@@ -1,0 +1,567 @@
+[
+{
+    "model": "admin.logentry",
+    "pk": 1,
+    "fields": {
+        "action_time": "2026-02-09T15:23:54.768Z",
+        "user": 2,
+        "content_type": 12,
+        "object_id": "1",
+        "object_repr": "Educational",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 2,
+    "fields": {
+        "action_time": "2026-02-09T15:24:04.275Z",
+        "user": 2,
+        "content_type": 12,
+        "object_id": "2",
+        "object_repr": "Sci-Fi",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 3,
+    "fields": {
+        "action_time": "2026-02-09T15:24:11.175Z",
+        "user": 2,
+        "content_type": 12,
+        "object_id": "3",
+        "object_repr": "Deep Space",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 4,
+    "fields": {
+        "action_time": "2026-02-09T15:24:47.247Z",
+        "user": 2,
+        "content_type": 8,
+        "object_id": "1",
+        "object_repr": "Journey to Mars",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 5,
+    "fields": {
+        "action_time": "2026-02-09T15:25:11.108Z",
+        "user": 2,
+        "content_type": 8,
+        "object_id": "2",
+        "object_repr": "Black Hole Mystery",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 6,
+    "fields": {
+        "action_time": "2026-02-09T15:26:23.083Z",
+        "user": 2,
+        "content_type": 8,
+        "object_id": "3",
+        "object_repr": "The Secret Lives of Stars",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 7,
+    "fields": {
+        "action_time": "2026-02-09T15:27:11.282Z",
+        "user": 2,
+        "content_type": 8,
+        "object_id": "4",
+        "object_repr": "Alien Worlds: Exoplanets",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 8,
+    "fields": {
+        "action_time": "2026-02-09T15:27:37.454Z",
+        "user": 2,
+        "content_type": 9,
+        "object_id": "1",
+        "object_repr": "Orion Hall",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 9,
+    "fields": {
+        "action_time": "2026-02-09T15:27:50.443Z",
+        "user": 2,
+        "content_type": 9,
+        "object_id": "2",
+        "object_repr": "Galaxy Dome",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 10,
+    "fields": {
+        "action_time": "2026-02-09T15:28:20.824Z",
+        "user": 2,
+        "content_type": 11,
+        "object_id": "1",
+        "object_repr": "Journey to Mars at 2026-02-09 15:28:17+00:00",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 11,
+    "fields": {
+        "action_time": "2026-02-09T15:28:28.268Z",
+        "user": 2,
+        "content_type": 11,
+        "object_id": "2",
+        "object_repr": "Black Hole Mystery at 2026-02-09 15:28:17+00:00",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 12,
+    "fields": {
+        "action_time": "2026-02-09T15:28:40.141Z",
+        "user": 2,
+        "content_type": 11,
+        "object_id": "3",
+        "object_repr": "The Secret Lives of Stars at 2026-02-02 18:00:00+00:00",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 13,
+    "fields": {
+        "action_time": "2026-02-09T15:28:49.061Z",
+        "user": 2,
+        "content_type": 11,
+        "object_id": "4",
+        "object_repr": "Alien Worlds: Exoplanets at 2026-02-02 18:00:00+00:00",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 14,
+    "fields": {
+        "action_time": "2026-02-09T15:29:06.054Z",
+        "user": 2,
+        "content_type": 10,
+        "object_id": "1",
+        "object_repr": "Reservation 1 by admin@admin.com",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"ticket\", \"object\": \"Journey to Mars at 2026-02-09 15:28:17+00:00 (Row: 2, Seat: 1)\"}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 15,
+    "fields": {
+        "action_time": "2026-02-09T15:29:14.782Z",
+        "user": 2,
+        "content_type": 10,
+        "object_id": "2",
+        "object_repr": "Reservation 2 by admin@admin.com",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"ticket\", \"object\": \"Journey to Mars at 2026-02-09 15:28:17+00:00 (Row: 1, Seat: 3)\"}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 16,
+    "fields": {
+        "action_time": "2026-02-09T15:29:57.956Z",
+        "user": 2,
+        "content_type": 10,
+        "object_id": "3",
+        "object_repr": "Reservation 3 by user@admin.com",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"ticket\", \"object\": \"The Secret Lives of Stars at 2026-02-02 18:00:00+00:00 (Row: 3, Seat: 5)\"}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 17,
+    "fields": {
+        "action_time": "2026-02-09T15:30:19.948Z",
+        "user": 2,
+        "content_type": 10,
+        "object_id": "4",
+        "object_repr": "Reservation 4 by user@admin.com",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"ticket\", \"object\": \"Alien Worlds: Exoplanets at 2026-02-02 18:00:00+00:00 (Row: 5, Seat: 3)\"}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 18,
+    "fields": {
+        "action_time": "2026-02-09T15:50:33.537Z",
+        "user": 2,
+        "content_type": 8,
+        "object_id": "2",
+        "object_repr": "Black Hole Mystery",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Image\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 19,
+    "fields": {
+        "action_time": "2026-02-09T15:50:37.562Z",
+        "user": 2,
+        "content_type": 8,
+        "object_id": "4",
+        "object_repr": "Alien Worlds: Exoplanets",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Image\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 20,
+    "fields": {
+        "action_time": "2026-02-09T15:50:40.827Z",
+        "user": 2,
+        "content_type": 8,
+        "object_id": "3",
+        "object_repr": "The Secret Lives of Stars",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Image\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 21,
+    "fields": {
+        "action_time": "2026-02-09T15:50:48.704Z",
+        "user": 2,
+        "content_type": 8,
+        "object_id": "1",
+        "object_repr": "Journey to Mars",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Image\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 22,
+    "fields": {
+        "action_time": "2026-02-09T15:50:59.356Z",
+        "user": 2,
+        "content_type": 8,
+        "object_id": "4",
+        "object_repr": "Alien Worlds: Exoplanets",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Image\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 23,
+    "fields": {
+        "action_time": "2026-02-09T15:51:12.892Z",
+        "user": 2,
+        "content_type": 8,
+        "object_id": "3",
+        "object_repr": "The Secret Lives of Stars",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Image\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 24,
+    "fields": {
+        "action_time": "2026-02-09T15:51:18.849Z",
+        "user": 2,
+        "content_type": 8,
+        "object_id": "2",
+        "object_repr": "Black Hole Mystery",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Image\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 25,
+    "fields": {
+        "action_time": "2026-02-09T15:51:24.132Z",
+        "user": 2,
+        "content_type": 8,
+        "object_id": "1",
+        "object_repr": "Journey to Mars",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Image\"]}}]"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "qvmoq9vgunug3qldawhw6tnbzl3mf4oj",
+    "fields": {
+        "session_data": ".eJxVjEEOwiAQRe_C2pAOAx106b5nIANDbdVAUtqV8e7apAvd_vfef6nA2zqFreUlzKIuyqjT7xY5PXLZgdy53KpOtazLHPWu6IM2PVTJz-vh_h1M3KZvzeKyQZGxS-SkP2cEMZ0dnU_ZR6IOyKPvkYAJCFy0CRyOESxSj2zV-wPhBDcR:1vpQrQ:pJLZhTvrTd8rmDDFyNS2zI5gAj6CrAk1q9qhEcBXay0",
+        "expire_date": "2026-02-23T12:59:28.553Z"
+    }
+},
+{
+    "model": "planetarium.showtheme",
+    "pk": 1,
+    "fields": {
+        "name": "Educational"
+    }
+},
+{
+    "model": "planetarium.showtheme",
+    "pk": 2,
+    "fields": {
+        "name": "Sci-Fi"
+    }
+},
+{
+    "model": "planetarium.showtheme",
+    "pk": 3,
+    "fields": {
+        "name": "Deep Space"
+    }
+},
+{
+    "model": "planetarium.astronomyshow",
+    "pk": 1,
+    "fields": {
+        "title": "Journey to Mars",
+        "description": "An immersive tour of the Red Planet, exploring its canyons and volcanoes.",
+        "image": "upload/astronomy-shows/journey-to-mars--c46d7e81-2944-4d44-8691-8114c181113b.jpg",
+        "themes": [
+            1,
+            3
+        ]
+    }
+},
+{
+    "model": "planetarium.astronomyshow",
+    "pk": 2,
+    "fields": {
+        "title": "Black Hole Mystery",
+        "description": "Discover what lies beyond the event horizon of a supermassive black hole.",
+        "image": "upload/astronomy-shows/black-hole-mystery--f13d1170-135c-444e-9358-e2d9a54d917e.jpg",
+        "themes": [
+            3
+        ]
+    }
+},
+{
+    "model": "planetarium.astronomyshow",
+    "pk": 3,
+    "fields": {
+        "title": "The Secret Lives of Stars",
+        "description": "Stars are not eternal. Witness the birth of a star in a nebula and its dramatic death as a supernova or a silent white dwarf.",
+        "image": "upload/astronomy-shows/the-secret-lives-of-stars--b4c889c0-a5f0-4045-bf64-8988cd621531.jpg",
+        "themes": [
+            1,
+            3
+        ]
+    }
+},
+{
+    "model": "planetarium.astronomyshow",
+    "pk": 4,
+    "fields": {
+        "title": "Alien Worlds: Exoplanets",
+        "description": "Are we alone? Journey to planets orbiting distant suns. Discover \"Hot Jupiters\", ocean worlds, and Earth-like planets in the habitable zone.",
+        "image": "upload/astronomy-shows/alien-worlds-exoplanets--dbb5da77-f485-4a85-9d69-b1eb25272498.png",
+        "themes": [
+            2,
+            3
+        ]
+    }
+},
+{
+    "model": "planetarium.planetariumdome",
+    "pk": 1,
+    "fields": {
+        "name": "Orion Hall",
+        "rows": 10,
+        "seats_in_row": 15
+    }
+},
+{
+    "model": "planetarium.planetariumdome",
+    "pk": 2,
+    "fields": {
+        "name": "Galaxy Dome",
+        "rows": 5,
+        "seats_in_row": 8
+    }
+},
+{
+    "model": "planetarium.showsession",
+    "pk": 1,
+    "fields": {
+        "astronomy_show": 1,
+        "planetarium_dome": 1,
+        "show_time": "2026-02-09T15:28:17Z"
+    }
+},
+{
+    "model": "planetarium.showsession",
+    "pk": 2,
+    "fields": {
+        "astronomy_show": 2,
+        "planetarium_dome": 2,
+        "show_time": "2026-02-09T15:28:17Z"
+    }
+},
+{
+    "model": "planetarium.showsession",
+    "pk": 3,
+    "fields": {
+        "astronomy_show": 3,
+        "planetarium_dome": 1,
+        "show_time": "2026-02-02T18:00:00Z"
+    }
+},
+{
+    "model": "planetarium.showsession",
+    "pk": 4,
+    "fields": {
+        "astronomy_show": 4,
+        "planetarium_dome": 2,
+        "show_time": "2026-02-02T18:00:00Z"
+    }
+},
+{
+    "model": "planetarium.reservation",
+    "pk": 1,
+    "fields": {
+        "created_at": "2026-02-09T15:29:06.050Z",
+        "user": 1
+    }
+},
+{
+    "model": "planetarium.reservation",
+    "pk": 2,
+    "fields": {
+        "created_at": "2026-02-09T15:29:14.779Z",
+        "user": 1
+    }
+},
+{
+    "model": "planetarium.reservation",
+    "pk": 3,
+    "fields": {
+        "created_at": "2026-02-09T15:29:57.953Z",
+        "user": 2
+    }
+},
+{
+    "model": "planetarium.reservation",
+    "pk": 4,
+    "fields": {
+        "created_at": "2026-02-09T15:30:19.943Z",
+        "user": 2
+    }
+},
+{
+    "model": "planetarium.ticket",
+    "pk": 1,
+    "fields": {
+        "row": 2,
+        "seat": 1,
+        "show_session": 1,
+        "reservation": 1
+    }
+},
+{
+    "model": "planetarium.ticket",
+    "pk": 2,
+    "fields": {
+        "row": 1,
+        "seat": 3,
+        "show_session": 1,
+        "reservation": 2
+    }
+},
+{
+    "model": "planetarium.ticket",
+    "pk": 3,
+    "fields": {
+        "row": 3,
+        "seat": 5,
+        "show_session": 3,
+        "reservation": 3
+    }
+},
+{
+    "model": "planetarium.ticket",
+    "pk": 4,
+    "fields": {
+        "row": 5,
+        "seat": 3,
+        "show_session": 4,
+        "reservation": 4
+    }
+},
+{
+    "model": "user.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$5nOpUI57vgZ7sH4jlDhZn1$4SajqO+wRmig6Dgbweg+jsZJvyU5UjrKTKd86X/vljc=",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "",
+        "last_name": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-02-09T12:52:54.264Z",
+        "email": "admin@admin.com",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "user.user",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$btr3SZ9p9ElzOhA29VneLB$fv6XYLPbbck++fxd6e2Vi23UMdWXX8Qkcb0FpCm2BYs=",
+        "last_login": "2026-02-09T12:59:28.551Z",
+        "is_superuser": true,
+        "first_name": "",
+        "last_name": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2026-02-09T12:53:54.549Z",
+        "email": "user@admin.com",
+        "groups": [],
+        "user_permissions": []
+    }
+}
+]
